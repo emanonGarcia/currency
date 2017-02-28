@@ -44,16 +44,17 @@ class Currency:
             raise DifferentCurrencyCodeError("Currency codes do not match")
 
     def __eq__(self, other):
+        if not isinstance(other, Currency):
+            return False
         return self.code == other.code and self.amount == other.amount
 
     def __ne__(self, other):
+        if not isinstance(other, Currency):
+            return False
         return self.code != other.code or self.amount != other.amount
 
     def __str__(self):
-        try:
-            return "{0}{1:0.2f}".format(self.CURRENCY_CODE[self.code], self.amount)
-        except:
-            return "{0}{1:0.2f}".format(self.code, self.amount)
+        return "{0}{1:0.2f}".format(self.CURRENCY_CODE[self.code], self.amount)
 
 
 money = Currency('5.90', 'USD')
