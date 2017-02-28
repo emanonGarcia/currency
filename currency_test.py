@@ -24,6 +24,7 @@ def test_are_ne():
 
 def test_are_eq_same_style():
     Currency(5, "EUR") == Currency(5, "EUR") == True
+    Currency(5, "£") == Currency(5, "£") == True
 
 
 def test_are_eq_diff_style():
@@ -36,3 +37,7 @@ def test_add_instances():
 
 def test_sub_instances():
     Currency(5, "USD") + Currency(15, "USD") == Currency('$-10')
+
+def test_mul_instances():
+    Currency(5, "USD") * Currency(15, "USD") == Currency('$75')
+    Currency('$10') * Currency('$10') == Currency(100, 'USD')
