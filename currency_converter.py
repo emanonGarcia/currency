@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from currency import Currency
 
+
 class DifferentCurrencyCodeError(Exception):
     pass
 
@@ -9,18 +10,15 @@ class UnknownCurrencyCodeError(Exception):
     pass
 
 
-class CurrencyConverter(Currency):
+class CurrencyConverter:
 
-    def __init__(self, currency_convertions={'USD': 1.0, 'EUR': 0.74}, **kwargs):
-        if isinstance(currency_convertions, dict):
-            self.conversion_dict = currency_convertions
+    def __init__(self, rates={'USD': 1.0, 'EUR': 0.74, 'JPY': 120.0}):
+        self.rates = rates
+
+    def convert(self, other, conversion_unit):
+
+        if other.code in self.rates and conversion_unit in self.rates:
+            new_amount = (other.amount * self.rates[conversion_unit] ) / self.rates[other.code]
+            return Currency(round(new_amount,2), conversion_unit)
         else:
-            raise ValueError
-        for key, value in kwargs.items():
-            self.conversion_dict[key] = value
-
-    def convert(self, currency, conversion_unit):
-        pass
-
-    def __str__():
-        pass
+            raise UnknownCurrencyCodeError
