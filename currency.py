@@ -1,4 +1,10 @@
 #!/usr/bin/env python3
+
+# State - attr, properties, what it knows, nouns
+# Identity - (type/name of class, memory address)
+# Behavior - stuff it does. behavior
+
+
 class DifferentCurrencyCodeError(Exception):
         pass
 
@@ -9,6 +15,7 @@ class Currency:
     CURRENCY_CODE = {'USD': '$', 'EUR': '€', 'JPY': '¥', 'GBP': '£'}
 
     def __init__(self, amount, code=''):
+
         if code:
             self.code = code
             self.amount = amount
@@ -37,9 +44,14 @@ class Currency:
             raise DifferentCurrencyCodeError("Currency codes do not match")
 
     def __mul__(self, other):
-        if self.code == other.code:
-            new_amount = self.amount * other.amount
-            return Currency(new_amount, self.code)
+        if isinstance(other, int) or isinstance(other, float):
+            return Currency(self.amount * other, self.code)
+        else:
+            raise DifferentCurrencyCodeError("Currency codes do not match")
+
+    def __rmul__(self, other):
+        if isinstance(other, int) or isinstance(other, float):
+            return Currency(self.amount * other, self.code)
         else:
             raise DifferentCurrencyCodeError("Currency codes do not match")
 
@@ -55,16 +67,3 @@ class Currency:
 
     def __str__(self):
         return "{0}{1:0.2f}".format(self.CURRENCY_CODE[self.code], self.amount)
-
-
-money = Currency('5.90', 'USD')
-print(money)
-
-other_money = Currency('$5')
-print(other_money)
-
-print(money + other_money)
-print(money - other_money)
-print(money != other_money)
-print(money == other_money)
-print(money * other_money)
