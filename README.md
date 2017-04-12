@@ -19,8 +19,6 @@ Or
 ```
 pip install nose
 ```
-### Installing
-how to install this module and give examples and repeat
 
 ## Running test
 In terminal, in the same directory run:
